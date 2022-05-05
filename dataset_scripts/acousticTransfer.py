@@ -16,9 +16,8 @@ warnings.filterwarnings('ignore')
 
 def process_single_model(filename, output_name):
     os.makedirs(os.path.dirname(output_name), exist_ok=True)
-    voxel = np.load(filename.replace('eigen', 'voxel').replace('.npz', '.npy'))
     data = np.load(filename)
-    vecs, vals= data['vecs'], data['vals']
+    vecs, vals, voxel = data['vecs'], data['vals'], data['voxel']
     freqs = val2freq(vals)
     coords = to_sparse_coords(voxel)
     coords_surface, feats_index = map(np.asarray,boundary_voxel(coords))

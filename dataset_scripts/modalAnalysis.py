@@ -18,7 +18,7 @@ if __name__ == '__main__':
         vecs, vals = modal_analysis(voxel, k = 20, mat=Material.Ceramic)
         out_file_name = os.path.join(out_dir, os.path.basename(filename).replace('.npy', '.npz'))
         dir(out_file_name)
-        np.savez_compressed(out_file_name, vecs = vecs, vals = vals)
+        np.savez_compressed(out_file_name, voxel = voxel, vecs = vecs, vals = vals)
 
 
 

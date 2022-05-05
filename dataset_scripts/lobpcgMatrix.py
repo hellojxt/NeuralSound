@@ -1,6 +1,6 @@
 import sys
 sys.path.append('..')
-from src.classic.fem.util import scipy2torch, to_sparse_coords, vertex_to_voxel_matrix, voxel_to_vertex_matrix
+from src.classic.fem.util import to_sparse_coords
 from src.classic.fem.project_util import voxel_to_edge
 from src.classic.fem.femModel import Hexahedron_model, Material
 import os

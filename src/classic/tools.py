@@ -7,8 +7,8 @@ from .fem.util import to_sparse_coords
 from .mesh.loader import ObjLoader
 
 class MelConfig():
-    mel_min, mel_max = 1000, 3500
-    mel_res = 10
+    mel_min, mel_max = 100, 10000
+    mel_res = 32
     mel_spacing = (mel_max - mel_min) / mel_res
 
 def mel2norm(mel):
