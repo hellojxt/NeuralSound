@@ -1,3 +1,1 @@
-# NeuralSound
-
-Coming soon!
+# HomePage of NeuralSound
