@@ -107,7 +107,6 @@ class MinkUNetBaseSmall(ResNetBase):
 
 
     def forward(self, x):
-        print(x.F.shape)
         out0 = self.block0(x)
 
         out = self.down0(out0)

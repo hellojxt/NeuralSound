@@ -19,7 +19,7 @@ class Convnet(nn.Module):
     def forward(self, x):
         return self.conv(x)
 
-class initUnet(MinkUNetBaseSmall):
+class defaultUnet(MinkUNetBaseSmall):
     BLOCK = BasicBlock
     LAYERS = (1, 1, 1, 1, 1, 1, 1)
     PLANES = (24, 32, 64, 128, 64, 32, 24)

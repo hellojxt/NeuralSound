@@ -72,7 +72,8 @@ if __name__ == '__main__':
     bempp.api.POTENTIAL_OPERATOR_DEVICE_TYPE = "gpu"
 
     file_list = glob(sys.argv[1])
+    out_dir = sys.argv[2]
     for filename in tqdm(file_list):
-        out_name = filename.replace('eigen', 'acousticMap')
+        out_name = os.path.join(out_dir, os.path.basename(filename))
         process_single_model(filename, out_name)
        

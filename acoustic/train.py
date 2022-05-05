@@ -12,6 +12,7 @@ import numpy as np
 from torch import optim
 import matplotlib.pyplot as plt
 from time import time
+
 def to_img(data1, data2, filename):
     data1 = data1.T / data1.max()
     data2 = data2.T / data2.max()
@@ -54,15 +55,18 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--tag', type=str, default='default')
     parser.add_argument('--suffix', type=str, default='')
-    parser.add_argument('--dataset', type=str, default='../dataset/acousticMapData')
+    parser.add_argument('--dataset', type=str, default='../dataset/acousticMap')
     parser.add_argument('--linear', dest='linear', action='store_true')
     parser.set_defaults(linear=False)
     parser.add_argument('--far', dest='far', action='store_true')
     parser.set_defaults(far=False)
     parser.add_argument('--wdir', type=str, default='./weights')
+    parser.add_argument('--cuda', type=int, default=0)
     args = parser.parse_args()
     Config.dataset_root_dir = args.dataset
     Config.tag = args.tag
+    device = torch.device(f'cuda:{args.cuda}')
+    Config.device = device
     if args.far:
         Config.CustomDataset = AcousticDatasetFar
     else:
@@ -78,8 +82,7 @@ if __name__ == '__main__':
     Config.dataset_worker_num = 8
     Config.weights_dir = args.wdir
     Config.debug = True
-    Config.batch_num_limit = 1
-    start_train(2)
+    start_train(100)
 
 '''
 

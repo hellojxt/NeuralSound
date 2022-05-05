@@ -83,23 +83,18 @@ def net(coords, x, edge):
 
 
 def forward_fun(items):
-    coords, edge, zero_vec, ind_lst, filename = items
+    coords, edge, ind_lst, filename = items
     vert_num = ind_lst[-1]
     x0 = torch.randn(vert_num*3, n).to(device)
     A_norm, B_norm = get_norms(x0, edge)
-    # print(A_norm, B_norm)
-    # zero_vec = zero_vec[0].to(device).float()
-    
     x, E = get_svqb(torch.cat((x0, net(coords, x0, edge)), dim=1), edge)
     err = rerr(x, E, edge, A_norm, B_norm)
     err = err[:20].mean()
     E = E[:20].mean()
-    print(err.item(), E.item())
     return err, E
-    # return torch.tensor([0])
+
     
 def loss_fun(err, E):
-    # print(err.item())
     return {
         'err': err,
         'E': E,
@@ -109,7 +104,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--tag', type=str, default='test')
     parser.add_argument('--dataset', type=str, default='../dataset/lobpcg')
-    parser.add_argument('--net', type=str, default='initUnet')
+    parser.add_argument('--net', type=str, default='defaultUnet')
     parser.add_argument('--nonlinear', dest='nonlinear', action='store_true')
     parser.set_defaults(nonlinear=False)
     parser.add_argument('--diag', dest='diag', action='store_true')

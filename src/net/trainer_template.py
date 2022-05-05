@@ -16,7 +16,7 @@ class Config():
     BATCH_SIZE = 16
     batch_num_limit = None
     dataset_root_dir = ''
-    dataset_worker_num = 0
+    dataset_worker_num = 4
     tag = 'default'
     device = torch.device('cuda:0')
     epoch_idx = 0
@@ -110,7 +110,6 @@ def start_train(max_epoch):
     global loaders, writer
     loaders = {phase:get_loader(phase) for phase in phases}
     Config.net.to(Config.device)
-    os.system(f'rm runs/{Config.tag}/*')
     writer = SummaryWriter(f'runs/{Config.tag}')
     Config.writer = writer
     if Config.load_weights:

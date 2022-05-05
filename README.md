@@ -20,26 +20,48 @@ First, you should cd to the folder of the scripts.
 ```bash
 cd dataset_scripts
 ```
-
-To generate Voxelized Data and save to dataset/voxel/*.npy:
+To generate Voxelized Data and save to ```dataset/voxel/*.npy```:
 ```bash
-python voxelize.py ../dataset/mesh/*
+python voxelize.py "../dataset/mesh/*" "../dataset/voxel"
 ```
-To generate eigenvectors and eigenvalues from modal analysis and save to dataset/eigen/*.npz:
+To generate eigenvectors and eigenvalues from modal analysis and save to ```dataset/eigen/*.npz```:
 ```bash
-python modalAnalysis ../dataset/voxel/*
+python modalAnalysis.py "../dataset/voxel/*" "../dataset/eigen"
 ```
 To generate dataset for our radiation solver and save to ```dataset/acousticMap/*.npz```:
 ```bash
-python acousticTransfer.py ../dataset/eigen/*
+python acousticTransfer.py "../dataset/eigen/*" "../dataset/acousticMap"
+```
+To generate dataset for our radiation solver and save to ```dataset/lobpcg/*.npz```:
+```bash
+python lobpcgMatrix.py "../dataset/voxel/*" "../dataset/lobpcg"
 ```
 
-To save matrix of each object to dataset/lobpcg/*.npz (the dataset for our vibration solver)
-python lobpcgMatrix.py ../dataset/voxel/*
-
 ## Training Vibration Solver
-First you
+First you should split the dataset into training, testing, and validation sets.
+```bash
+cd dataset_scripts
+python splitDataset.py "../dataset/lobpcg/*.pt"
+```
+Then you can train the vibration solver.
+```bash
+cd ../vibration
+python train.py --dataset "../dataset/lobpcg" --tag default_tag --net defaultUnet --cuda 0
+```
+The log file is saved to ```vibration/runs/default_tag/``` and the weights are saved to ```vibration/weights/default_tag.pt```.
+
 ## Training Radiation Solver
+First you should split the dataset into training, testing, and validation sets.
+```bash
+cd dataset_scripts
+python splitDataset.py "../dataset/acousticMap/*.npz"
+```
+Then you can train the vibration solver.
+```bash
+cd ../acoustic
+python train.py --dataset "../dataset/acousticMap" --tag default_tag --cuda 0
+```
+The log file is saved to ```acoustic/runs/default_tag/``` and the weights are saved to ```acoustic/weights/default_tag.pt```. Visualized FFAT Maps are saved to ```acoustic/images/default_tag/``` (In each image, above is ground-truth and below is prediction).
 
 ## Contact
 For bugs and feature requests please visit GitHub Issues or contact [Xutong Jin](https://hellojxt.github.io/) by email at jinxutong@pku.edu.cn.

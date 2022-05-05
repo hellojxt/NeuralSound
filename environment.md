@@ -22,4 +22,7 @@ export CXX=g++-8
 export CUDA_HOME=/usr/local/cuda-11.1/
 export MAX_JOBS=2; # see https://github.com/NVIDIA/MinkowskiEngine/issues/228
 python setup.py install --blas_include_dirs=${CONDA_PREFIX}/include --blas=openblas
+
+# fix the bug of pytorch and tensorboard (see https://github.com/pytorch/pytorch/issues/69894)
+pip install setuptools==59.5.0
 ```

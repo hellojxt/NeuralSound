@@ -20,7 +20,8 @@ def process_single(filename, output_name):
 
 if __name__ == '__main__':
     file_list = glob(sys.argv[1])
+    out_dir = sys.argv[2]
     for filename in tqdm(file_list):
-        out_name = filename.replace('voxel', 'lobpcg').replace('.npy', '.pt')
+        out_name = os.path.join(out_dir, os.path.basename(filename).replace('.npy', '.pt'))
         process_single(filename, out_name)
         
