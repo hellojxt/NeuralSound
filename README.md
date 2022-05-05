@@ -3,13 +3,14 @@
 ![teaser](https://hellojxt.github.io/NeuralSound/images/teaser.png)
 
 ## Introduction
-Official Implementation of NeuralSound. NeuralSound includes a mixed vibration solver for modal analysis and a radiation network for acoustic transfer. We also inclue some code for the implementation of the [DeepModal](https://hellojxt.github.io/DeepModal/).
+Official Implementation of NeuralSound. NeuralSound includes a mixed vibration solver for modal analysis and a radiation network for acoustic transfer. This repository also include some code for the implementation of the [DeepModal](https://hellojxt.github.io/DeepModal/).
 
 ## Environment
 - Ubuntu, Python
 - Matplotlib, Numpy, Scipy, PyTorch, tensorboard, PyCUDA, Numba, tqdm, meshio 
 - [Bempp-cl](https://github.com/bempp/bempp-cl)
 - [Minkowski Engine](https://github.com/NVIDIA/MinkowskiEngine)
+- [PyTorch Scatter](https://github.com/rusty1s/pytorch_scatter)
 
 For Ubuntu20.04, python 3.7, and CUDA 11.1, a tested script for environment setup is [here](./environment.md).
 
@@ -20,22 +21,23 @@ First, you should cd to the folder of the scripts.
 ```bash
 cd dataset_scripts
 ```
-To generate Voxelized Data and save to ```dataset/voxel/*.npy```:
+To generate voxelized data and save to ```dataset/voxel/*.npy```, run:
 ```bash
 python voxelize.py "../dataset/mesh/*" "../dataset/voxel"
 ```
-To generate eigenvectors and eigenvalues from modal analysis and save to ```dataset/eigen/*.npz```:
+To generate eigenvectors and eigenvalues from modal analysis and save to ```dataset/eigen/*.npz```, run:
 ```bash
 python modalAnalysis.py "../dataset/voxel/*" "../dataset/eigen"
 ```
-To generate dataset for our radiation solver and save to ```dataset/acousticMap/*.npz```:
-```bash
-python acousticTransfer.py "../dataset/eigen/*" "../dataset/acousticMap"
-```
-To generate dataset for our radiation solver and save to ```dataset/lobpcg/*.npz```:
+To generate dataset for our vibration solver and save to ```dataset/lobpcg/*.npz```, run:
 ```bash
 python lobpcgMatrix.py "../dataset/voxel/*" "../dataset/lobpcg"
 ```
+To generate dataset for our radiation solver and save to ```dataset/acousticMap/*.npz```, run:
+```bash
+python acousticTransfer.py "../dataset/eigen/*" "../dataset/acousticMap"
+```
+
 
 ## Training Vibration Solver
 First you should split the dataset into training, testing, and validation sets.
@@ -56,7 +58,7 @@ First you should split the dataset into training, testing, and validation sets.
 cd dataset_scripts
 python splitDataset.py "../dataset/acousticMap/*.npz"
 ```
-Then you can train the vibration solver.
+Then you can train the radiation solver.
 ```bash
 cd ../acoustic
 python train.py --dataset "../dataset/acousticMap" --tag default_tag --cuda 0
