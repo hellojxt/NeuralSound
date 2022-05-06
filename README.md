@@ -21,7 +21,7 @@ First, you should cd to the folder of the scripts.
 ```bash
 cd dataset_scripts
 ```
-To generate voxelized data and save to ```dataset/voxel/*.npy```, run:
+To generate voxel models and save to ```dataset/voxel/*.npy```, run:
 ```bash
 python voxelize.py "../dataset/mesh/*" "../dataset/voxel"
 ```
@@ -55,7 +55,7 @@ python train.py --dataset "../dataset/lobpcg" --tag default_tag --net defaultUne
 ```
 The log file is saved to ```vibration/runs/default_tag/``` and the weights are saved to ```vibration/weights/default_tag.pt```.
 
-In the vibration solver, the matrix multiplication is implemented by a similar way of graph neural network. See function ```spmm_conv``` in ```src/classic/fem/project_util.py```. This is because of the consistency of convolution with matrix multiplication mentioned in our paper.
+In the vibration solver, the matrix multiplication is implemented by a similar way of graph neural network. This is because of the consistency of convolution with matrix multiplication mentioned in our paper. We implemented the graph convolution with [PyTorch Scatter](https://github.com/rusty1s/pytorch_scatter). See function ```spmm_conv``` in ```src/classic/fem/project_util.py```.  
 
 ## Training Radiation Solver
 First you should split the dataset into training, testing, and validation sets.
