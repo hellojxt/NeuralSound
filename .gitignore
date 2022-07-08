@@ -1,3 +1,6 @@
 **/__pycache__
-dataset/**
+dataset/acousticMap
+dataset/eigen
+dataset/voxel
+dataset/deepmodal
 **/.DS_Store
