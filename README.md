@@ -88,5 +88,8 @@ python train.py --dataset "../dataset/deepmodal" --tag default_tag --net default
 ```
 The log file is saved to ```deepmodal/runs/default_tag/``` and the weights are saved to ```deepmodal/weights/default_tag.pt```. DeepModal is faster than the mixed vibration solver in NeuralSound, but the error is larger. This implementation of DeepModal use Sparse-Convolutional Neural Network (SCNN) rather than Convolutional Neural Network (CNN) in the original paper.
 
+## Blender Scripts
+The scripts in folder ```blender``` are used to generate videos with modal sound.
+
 ## Contact
 For bugs and feature requests please visit GitHub Issues or contact [Xutong Jin](https://hellojxt.github.io/) by email at jinxutong@pku.edu.cn.
