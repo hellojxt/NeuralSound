@@ -21,6 +21,9 @@ First, you should cd to the folder of the scripts.
 ```bash
 cd dataset_scripts
 ```
+The following scripts are used as `python XXXX.py input_data output_data` and you should ensure that the input data are not empty.
+
+
 To generate voxel models and save to ```dataset/voxel/*.npy```, run:
 ```bash
 python voxelize.py "../dataset/mesh/*" "../dataset/voxel"
