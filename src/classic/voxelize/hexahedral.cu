@@ -177,9 +177,9 @@ __global__ void voxelize(int *dest, int res, float *vertices, int *triangles, in
     float voxel_size = 1.0f/res;
     float k = 1.1f;
     float boxhalfsize[3] = {voxel_size/2*k, voxel_size/2*k, voxel_size/2*k};
-    float boxcenter[3] = {-0.5f+ (threadIdx.x+0.5f) * voxel_size ,
+    float boxcenter[3] = {-0.5f+ (blockIdx.x+0.5f) * voxel_size ,
                             -0.5f+ (threadIdx.y+0.5f) * voxel_size ,
-                            -0.5f+ (blockIdx.x+0.5f) * voxel_size ,
+                            -0.5f+ (threadIdx.x+0.5f) * voxel_size ,
                         };
 
     for (int tri_idx = 0; tri_idx < num_triangle; tri_idx++){
